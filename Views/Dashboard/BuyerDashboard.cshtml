@@ -1,0 +1,96 @@
+﻿@{
+    ViewData["Title"] = "Wi-Find Buyer | Dashboard ";
+}
+@model BuyerDashboardViewModel
+<table class="table table-bordered table-dark" id="tabley">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col"><img src="https://github.com/davidroygsu/SEstuff/raw/main/wifiangel.svg" class="tableangel" height="8em"> Seller</th>
+            <th scope="col"><img src="https://icons.getbootstrap.com/assets/icons/wifi.svg" class="tableicon"> Wi-Fi Name</th>
+            <th scope="col"><img src="https://icons.getbootstrap.com/assets/icons/coin.svg" class="tableicon"> Price ($/hr)</th>
+            <th scope="col"><img src="https://icons.getbootstrap.com/assets/icons/speedometer.svg" class="tableicon"> Speed (Mbps)</th>
+            <th scope="col"><img src="https://icons.getbootstrap.com/assets/icons/car-front.svg" class="tableicon"> Location </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var wifi in Model.wifi)
+        {
+
+            <tr>
+                <th scope="row">1</th>
+                <td>@wifi.WiFindUser.Email</td>
+                <!-- Button trigger modal -->
+
+                <td>
+                    <button type="button" class="btn btn-primary connectModalBtn" data-bs-toggle="modal" data-bs-target="#connectionModal" data-wifi="@wifi.WifiId.ToString()">
+                        @wifi.WifiName
+                    </button>
+                </td>S
+                <td>@wifi.Price</td>
+                <td>@wifi.Speed</td>
+                <td>@wifi.Location</td>
+            </tr>
+        }
+
+    </tbody>
+</table>
+<div class="jumbotron text-center">
+    <a asp-controller="Dashboard" asp-action="BuyerConnectionStatus" asp-route-wifiUserId="@Model.user.WiFindUserId.ToString()" class="btn btn-primary btn-lg active rounded-2 buyerbutton" role="button" aria-pressed="true">View Connection Status</a>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="connectionModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+     aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">Enter Password</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row mb-3">
+                    <label for="buyerConfirmPassword" class="col-sm-4 col-form-label">Password</label>
+                    <div class="col-sm-6">
+                        <input type="password" class="form-control" id="wifiPassword">
+                    </div>
+                </div>
+                <div class="text-center">
+                    <a class="btn btn-primary" href="#" role="button">Join</a>
+                </div>
+                <div class="text-center">
+                    <button type="button" id="directToPaymentPageButton" class="btn btn-secondary">No pass? Click to pay to get access</button>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+@section Scripts{
+
+    <script>$('.connectModalBtn').click(function () {
+
+            var wifiId = $(this).data('wifi');
+            console.log(wifiId)
+            $('#directToPaymentPageButton').attr('data-id', wifiId);
+
+
+        });
+        $('#directToPaymentPageButton').click(function () {
+
+            goToPaymentPage($(this).data('id'))
+
+        });
+        function goToPaymentPage(id) {
+            window.location.href = "https://localhost:7292/Dashboard/PaymentPage?wifiId=" + id;
+        };</script>
+
+}
+
+

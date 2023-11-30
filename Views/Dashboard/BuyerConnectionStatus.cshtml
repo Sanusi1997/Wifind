@@ -1,0 +1,45 @@
+﻿@{
+    ViewData["Title"] = "Wi-Find Buyer | Connection Status";
+}
+@model WifiConnection
+
+<div class="text-end m-5">
+    <a href="#">logout</a>
+</div>
+<div class="container">
+    <div class="card">
+        <div class="card-header text-center">
+            <h5>Current Connection</h5>
+        </div>
+        <div class="card-body ms-5 mt-2">
+            <div class="row">
+                <div class="col-sm-6">
+                    <h3 class=""><i class="bi bi-wifi"></i> @Model.Wifi.WifiName </h3>
+                    <h3 class=""><i class="bi bi-geo-alt"></i> @Model.Wifi.Location</h3>
+                    <h3 class=""><i class="bi bi-clock"></i> Connection Start Time : @Model.ConnectionStartTime.Value.ToLocalTime().ToString("f")</h3>
+                    <h3 class=""><i class="bi bi-clock"></i> Connection End Time : @Model.ConnectionEndTime.Value.ToLocalTime().ToString("f")</h3>
+                    <a class="" href="#">Renew?</a>
+                </div>
+                <div class="col-sm-6">
+                    <div class="row mb-3">
+                        <label for="buyerUsername" class="col-sm-3 col-form-label">@Model.WiFindUser.Email</label>
+                        <div class="col-sm-6">
+                            <input type="email" class="form-control" id="buyerUsername">
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label for="buyerPassword" class="col-sm-3 col-form-label">@Model.Wifi.Password</label>
+                        <div class="col-sm-6">
+                            <input type="password" class="form-control" id="buyerPassword">
+                        </div>
+                    </div>
+                </div>
+                <img src="https://github.com/davidroygsu/SEstuff/raw/main/wi-fi-angel-map.png" height="10%">
+            </div>
+        </div>
+        <div class="card-footer text-center text-muted">
+            <a asp-controller="Dashboard" asp-action="BuyerDashboard">Back to dashboard</a>
+        </div>
+    </div>
+
+</div>

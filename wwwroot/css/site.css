@@ -1,0 +1,78 @@
+﻿.buyerbutton {
+    background-color: #d7862b !important;
+    color: #27536e !important;
+}
+
+.sellerbutton {
+    background-color: #27536e !important;
+    color: #d7862b !important;
+}
+
+body {
+    background-image: url("https://images.pexels.com/photos/5356221/pexels-photo-5356221.jpeg?cs=srgb&dl=pexels-roberto-hund-5356221.jpg&fm=jpg&w=6000&h=4000");
+}
+
+.tableicon {
+    filter: invert(100%);
+}
+
+.tableangel {
+    filter: invert(100%);
+    height: 2em;
+}
+
+.cardganize {
+    display: flex;
+    justify-content: center;
+    column-gap: 3em;
+}
+
+.cardicon {
+    height: 2em;
+}
+
+.dollar {
+    height: 2em;
+    filter: invert(55%) sepia(100%) saturate(3.5) hue-rotate(45deg);
+}
+
+.piggy {
+    filter: invert(84%) sepia(3%) saturate(3131%) hue-rotate(303deg) brightness(88%) contrast(135%);
+}
+
+.mouse {
+    filter: invert(17%) sepia(84%) saturate(3697%) hue-rotate(317deg) brightness(77%) contrast(94%);
+}
+
+.rocket {
+    filter: invert(20%) sepia(81%) saturate(4097%) hue-rotate(7deg) brightness(94%) contrast(98%);
+}
+
+.login {
+    color: #d7862b;
+}
+
+.container {
+    margin-top: 60px;
+}
+
+.form-signin {
+    max-width: 330px;
+    padding: 15px;
+}
+
+    .form-signin .form-floating:focus-within {
+        z-index: 2;
+    }
+
+    .form-signin input[type="email"] {
+        margin-bottom: -1px;
+        border-bottom-right-radius: 0;
+        border-bottom-left-radius: 0;
+    }
+
+    .form-signin input[type="password"] {
+        margin-bottom: 10px;
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+    }

@@ -1,0 +1,145 @@
+﻿@{
+    ViewData["Title"] = "Wi-Find Seller | Dashboard ";
+}
+
+@model SellerDashboardViewModel
+<div class="cardganize">
+
+    <div class="card text-white bg-danger mb-3 text-center" style="max-width: 18rem;">
+        <div class="card-header">Earnings Till Date</div>
+        <div class="card-body">
+            <img src="https://icons.getbootstrap.com/assets/icons/piggy-bank-fill.svg" class="cardicon piggy center">
+            <h5 class="card-title">@Model.wifi.AmountEarned</h5>
+        </div>
+    </div>
+    <div class="card text-white bg-primary mb-3 text-center" style="max-width: 18rem;">
+        <div class="card-header">Setup WiFi </div>
+        <div class="card-body">
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addWifiModal">
+                Wifi <i class="bi bi-plus"></i>
+            </button>
+        </div>
+    </div>
+    <div class="card text-white bg-dark mb-3 text-center" style="max-width: 18rem;">
+        <div class="card-header">Total Users</div>
+        <div class="card-body">
+            <img src="https://icons.getbootstrap.com/assets/icons/rocket-takeoff.svg"
+                 class="rocket cardicon center">
+            <h5 class="card-title">@Model.wifi.NoOfUsers</h5>
+        </div>
+    </div>
+    <form class="form-inline">
+        <div class="form-group mb-2">
+            <label for="staticprice" class="sr-only">Current price/hr:</label>
+            <input type="text" readonly class="form-control-plaintext" id="staticprice" value="$@Model.wifi.Price">
+        </div>
+        <div class="form-group mx-sm-3 mb-2">
+            <label for="inputprice" class="sr-only">New Price</label>
+            <input type="password" class="form-control" id="inputprice" placeholder="New Price">
+        </div>
+        <button type="submit" class="btn btn-primary mb-2">Confirm price change</button>
+    </form>
+</div>
+<img src="https://github.com/davidroygsu/SEstuff/raw/main/saleschart.svg" class="center">
+
+
+
+
+
+
+<!-- Add Wifi Connection Model -->
+<div class="modal fade" id="addWifiModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">Setup WIFI</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body m-3">
+                <form>
+                    <div class="row mb-3">
+                        <label for="WifiName" class="col-sm-4 col-form-label">Wifi Name</label>
+                        <div class="col-sm-8">
+                            <input type="text" for="WifiName" class="form-control" name="WifiName">
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label for="Price" class="col-sm-4 col-form-label">$Price per hour</label>
+                        <div class="col-sm-8">
+                            <input type="number" for="Price" class="form-control" name="Price">
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label for="Location" class="col-sm-4 col-form-label">Location</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" name="Location">
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label for="Speed" class="col-sm-4 col-form-label">Speed</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" name="Speed">
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label for="WifiPassword" class="col-sm-4 col-form-label">Wifi Password</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" name="WifiPassword">
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <input type="button" class="btn btn-primary" id="wifiDetailSubmit" value="Submit" />
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script>
+            $('#wifiDetailSubmit').click(function (e) {
+                e.preventDefault();
+                var wifi = {
+                    WifiName: $('input[name="WifiName"]').val(),
+                    Price: $('input[name="Price"]').val(),
+                    Location: $('input[name="Location"]').val(),
+                    Speed: $('input[name="Speed"]').val(),
+                    Passsword: $('input[name=" WifiPassword "]').val(),
+                    WiFindUserId: "@Model.user.WiFindUserId"
+                }
+
+
+                addWifi(wifi);
+            });
+
+            function addWifi(wifi) {
+                $.ajax({
+                    url: "@Url.Action("AddWifiDetails", "Dashboard")",
+                    type: "POST",
+                    data: wifi,
+                    success: function (data, textStatus, jqXHR) {
+                        if (data.success) {
+                            $('#addWifiModal').modal('hide');
+                            alert(data.message);
+                            location.reload();
+                        } else {
+                            $('#addWifiModal').modal('hide');
+                            alert(data.message);
+                        }
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        alert('Error sending request');
+                        location.reload();
+                    }
+
+                })
+            }
+    </script>
+
+
+}
+
